@@ -15,12 +15,12 @@ class Papa(ABC):
                 alph = json.load(alp)
             if "alph" in alph:
                 if type(alph["alph"]) is list:
-                    # for letter in alph["alph"]:
-                    #     if len(letter) == 1:
-                    #         pass
-                    #     else:
-                    #         print(f'Длина символа "{letter}" не равна одного\n')
-                    #         raise Exception()
+                    for letter in alph["alph"]:
+                        if len(letter) == 1:
+                            pass
+                        else:
+                            print(f'Длина символа "{letter}" не равна одного\n')
+                            raise Exception()
                     alph = [let.lower() for let in alph["alph"]]
                     alph = set(alph)
                     self._alph = list(alph)
@@ -452,7 +452,7 @@ while flag:
                     flag = False
                     break
                 elif i == 2:
-                    print("Слишком много ошибок.")
+                    print("Слишком много ошибок. До свидания")
                     flag = False
                 else:
                     print("Неправильно введена комманда\n")
