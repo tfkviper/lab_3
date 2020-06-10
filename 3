@@ -7,11 +7,12 @@ class Papa(ABC):
         try:
             self._er = 0
             wa = input('\nВведите полный путь к файлу алфавита\n(файл должен быть в формате json и иметь расширение .alph,\nалфавит должен находится в ключе "alph"): ')
+            wa_1=wa.split(".")
+            if wa_1[-1] != "alph" or len(wa_1)==1:
+                raise OSError()
+            else:
+                pass
             with open(wa, 'r', encoding = "UTF-8") as alp:
-                if wa[-5:] != ".alph":
-                    raise OSError()
-                else:
-                    pass
                 alph = json.load(alp)
             if "alph" in alph:
                 if type(alph["alph"]) is list:
@@ -19,7 +20,7 @@ class Papa(ABC):
                         if len(letter) == 1:
                             pass
                         else:
-                            print(f'Длина символа "{letter}" не равна одного\n')
+                            print(f'Длина символа "{letter}" не равна одному\n')
                             raise Exception()
                     alph = [let.lower() for let in alph["alph"]]
                     alph = set(alph)
@@ -37,7 +38,7 @@ class Papa(ABC):
             print("Такого файла не существует\n")
             self._er = 1
         except OSError:
-            print('Расширение данного файла не ".alph"\n')
+            print('Расширение данного файла не ".alph" или некорректная длина названия\n')
             self._er = 1
         except Exception:
             self._er = 1
@@ -47,11 +48,12 @@ class Papa(ABC):
         if x == "r":
             try:
                 wk = input("\nВведите полный путь к файлу ключа (файл должен иметь расширение .key): ")
+                wk_1=wk.split(".")
+                if wk_1[-1] != "key" or len(wk_1)==1:
+                    raise OSError()
+                else:
+                    pass
                 with open(wk, 'r', encoding = "UTF-8") as key:
-                    if wk[-4:] != ".key":
-                        raise OSError()
-                    else:
-                        pass
                     self._enlist = json.load(key)
             except FileNotFoundError:
                 print("Такого файла не существует\n")
@@ -60,14 +62,15 @@ class Papa(ABC):
                 print("Данный файл находится не в формате json")
                 self._er = 1
             except OSError:
-                print('Расширение данного файла не ".key"')
+                print('Расширение данного файла не ".key" или некорректная длина названия')
                 self._er = 1
         else:
             flag = True
             while flag:
                 try:
                     wk = input("\nВведите полный путь к месту создания файла ключа (файл должен иметь расширение .key): ")
-                    if wk[-4:] != ".key":
+                    wk_1=wk.split(".")
+                    if wk_1[-1] != "key" or len(wk_1[0])==0:
                         raise OSError()
                     else:
                         pass
@@ -76,31 +79,33 @@ class Papa(ABC):
                         print("Ключ успешно сгенерирован\n")
                         flag = False
                 except OSError:
-                    print('Расширение данного файла не ".key"\nВведите корректное название')
+                    print('Расширение данного файла не ".key" или некорректная длина названия\nВведите корректное название')
 
     def TXT(self, x, dtext):
         self._er = 0
         if x == "r":
             try:
                 wt = input("\nВведите полный путь к файлу открытого текста (файл должен иметь расширение .txt): ")
+                wt_1=wt.split(".")
+                if wt_1[-1] != "txt" or len(wt_1)==1:
+                    raise OSError()
+                else:
+                    pass
                 with open(wt, 'r', encoding = "UTF-8") as tx:
-                    if wt[-4:] != ".txt":
-                        raise OSError()
-                    else:
-                        pass
                     self._txt = tx.read()
             except FileNotFoundError:
                 print("Такого файла не существует")
                 self._er = 1
             except OSError:
-                print('Расширение данного файла не ".txt"')
+                print('Расширение данного файла не ".txt" или некорректная длина названия')
                 self._er = 1
         else:
             flag = True
             while flag:
                 try:
                     wd = input("\nВведите полный путь к месту создания файла расшифрованного текста (файл должен иметь расширение .txt): ")
-                    if wd[-4:] != ".txt":
+                    wd_1=wd.split(".")
+                    if wd[-1] != "txt" or len(wd_1)==1:
                         raise OSError()
                     else:
                         pass
@@ -109,24 +114,25 @@ class Papa(ABC):
                         print("Зашифрованный текст успешно расшифрован\n")
                         flag = False
                 except OSError:
-                    print('Расширение данного файла не ".txt"\nВведите корректное название')
+                    print('Расширение данного файла не ".txt" или некорректная длина названия\nВведите корректное название')
 
     def ENCODE(self, x, defdict):
         self._er = 0
         if x == "r":
             try:
                 we = input("\nВведите полный путь к файлу шифртекста (файл должен иметь расширение .encode): ")
+                we_1=we.split('.')
+                if we_1[-1] != "encode" or len(we_1)==1:
+                    raise OSError()
+                else:
+                    pass
                 with open(we, 'r', encoding = "UTF-8") as etx:
-                    if we[-7:] != ".encode":
-                        raise OSError()
-                    else:
-                        pass
                     self._etxt = json.load(etx)
             except FileNotFoundError:
                 print("Такого файла не существует\n")
                 self._er = 1
             except OSError:
-                print('Расширение данного файла не ".encode"')
+                print('Расширение данного файла не ".encode" или некорректная длина названия')
                 self._er = 1
             except json.decoder.JSONDecodeError:
                 print("Данный файл находится не в формате json\n")
@@ -136,7 +142,8 @@ class Papa(ABC):
             while flag:
                 try:
                     we = input("\nВведите полный путь к месту создания файла шифртекста (файл должен иметь расширение .encode): ")
-                    if we[-7:] != ".encode":
+                    we_1=we.split('.')
+                    if we_1[-1] != "encode" or len(we_1)==1:
                         raise OSError()
                     else:
                         pass
@@ -452,7 +459,7 @@ while flag:
                     flag = False
                     break
                 elif i == 2:
-                    print("Слишком много ошибок. До свидания")
+                    print("Слишком много ошибок.")
                     flag = False
                 else:
                     print("Неправильно введена комманда\n")
