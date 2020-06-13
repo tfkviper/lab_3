@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod, abstractclassmethod
 import random, json
 
@@ -105,7 +106,7 @@ class Papa(ABC):
                 try:
                     wd = input("\nВведите полный путь к месту создания файла расшифрованного текста (файл должен иметь расширение .txt): ")
                     wd_1=wd.split(".")
-                    if wd[-1] != "txt" or len(wd_1)==1:
+                    if wd_1[-1] != "txt" or len(wd_1)==1:
                         raise OSError()
                     else:
                         pass
